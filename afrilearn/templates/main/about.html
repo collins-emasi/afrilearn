@@ -1,0 +1,95 @@
+{% extends "main/layout.html" %}
+
+{% block content %}
+    <!-- about_area_start -->
+    <div class="about_area">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-5 col-lg-6">
+                    <div class="single_about_info">
+                        <h3>Quality Revision <br>
+                            from different Material</h3>
+                        <p>Our main aim is to enable students access of ready materials for revision at home.
+                        We would like all students to access revision materils at no extra charge for it.
+                        If you'd like to start. Make sure to create an account to access unlimited materials
+                        from us</p>
+                        <a href="{{ url_for('courses.courses_func') }}" class="boxed_btn">Enroll a Course</a>
+                    </div>
+                </div>
+                <div class="col-xl-6 offset-xl-1 col-lg-6">
+                    <div class="about_tutorials">
+                        <div class="courses">
+                            <div class="inner_courses">
+                                <div class="text_info">
+                                    <span>10+</span>
+                                    <p> Courses</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="courses-sky">
+                            <div class="inner_courses">
+                                <div class="text_info">
+                                    <span>60+</span>
+                                    <p> Materials</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- about_area_end -->
+    <!-- our_courses_start -->
+    <div class="our_courses mt-10">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="section_title text-center mb-100">
+                        <h3>Our Course Speciality</h3>
+                        <p>We specialize in both primary, and High school <br>
+                            You are welcome to try our materials.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-4  col-md-6 col-lg-6">
+                    <div class="single_course text-center">
+                        <div class="icon">
+                            <i class="flaticon-art-and-design"></i>
+                        </div>
+                        <h3>Pre-Unit School</h3>
+                        <p>
+                            For the little ones, learning is fun!
+                        </p>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-md-6 col-lg-6">
+                    <div class="single_course text-center">
+                        <div class="icon blue">
+                            <i class="flaticon-business-and-finance"></i>
+                        </div>
+                        <h3>Primary School</h3>
+                        <p>
+                            Click for Revision now, practise
+                        </p>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-md-6 col-lg-6">
+                    <div class="single_course text-center">
+                        <div class="icon">
+                            <i class="flaticon-premium"></i>
+                        </div>
+                        <h3>High School</h3>
+                        <p>
+                            Revise for all the subjects you want to.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- our_courses_end -->
+
+{% endblock content %}

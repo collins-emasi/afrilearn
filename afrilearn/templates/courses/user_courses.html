@@ -1,0 +1,31 @@
+{% extends "main/layout.html" %}
+
+{% block content %}
+    <div class="our_courses">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-lg-6 single_course text-center">
+                    <div class="icon blue">
+                        <i class="flaticon-business-and-finance"></i>
+                    </div>
+                    <a href="{{ url_for("courses.primary_school") }}"><h2>Primary School</h2></a>
+                    <p>
+                        Your domain control panel is designed for ease-of-use <br> and <br>
+                        allows for all aspects of
+                    </p>
+                </div>
+                <div class="col-lg-6 single_course text-center">
+                    <div class="icon">
+                        <i class="flaticon-premium"></i>
+                    </div>
+                    <a href="#"><h2>High School</h2></a>
+                    <p>
+                        Your domain control panel is designed for ease-of-use <br> and <br>
+                        allows for all aspects of
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
