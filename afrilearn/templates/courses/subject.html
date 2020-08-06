@@ -4,13 +4,13 @@
     <div class="our_courses">
         <div class="container">
             <div class="row">
-                {% for _class in all_level_class.items %}
+                {% for pdfs in all_level_class.items %}
                     <div class="col-lg-6 single_course text-center">
                         <div class="icon blue">
                             <i class="flaticon-business-and-finance"></i>
                         </div>
-                        <a href="{{ url_for("courses.revision", container_id=container, blob_name=_class) }}">
-                            <h2>{{ _class|capitalize }}</h2></a>
+                        <a href="{{ url_for("courses.revision", container_name=container_name, blob_name=pdfs.id) }}">
+                            <h2>{{ pdfs.blob_name|capitalize }}</h2></a>
                         <p>
                             Your panel is designed for ease-of-use <br> and <br>
                             allows for all aspects of revision

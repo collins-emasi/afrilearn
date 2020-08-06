@@ -1,11 +1,10 @@
-from afrilearn import db, login_manager
+import flask_whooshalchemy as fwa
 from flask_login import UserMixin
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
-from datetime import datetime, timedelta
-from azure.storage.blob import generate_container_sas, ContainerSasPermissions, generate_blob_sas, BlobSasPermissions
-import flask_whooshalchemy as fwa
+
 from afrilearn import app
-from config import ACCOUNT_KEY, ACCOUNT_NAME, blob_service_client
+from afrilearn import db, login_manager
+from config import blob_service_client
 
 
 @login_manager.user_loader
@@ -66,31 +65,6 @@ class LevelBlob(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     blob_name = db.Column(db.String(100), nullable=False)
     subject_id = db.Column(db.Integer, db.ForeignKey('Subject.id'), nullable=False)
-
-    @staticmethod
-    def get_pdf_url_with_container_sas_token(blob_name, container_name):
-        container_sas_token = generate_container_sas(
-            account_name=ACCOUNT_NAME,
-            container_name=container_name,
-            account_key=ACCOUNT_KEY,
-            permission=ContainerSasPermissions(read=True),
-            expiry=datetime.utcnow() + timedelta(hours=1)
-        )
-        blob_url_with_container_sas_token = f"https://{ACCOUNT_NAME}.blob.core.windows.net/{container_name}/{blob_name}?{container_sas_token}"
-        return blob_url_with_container_sas_token
-
-    @staticmethod
-    def get_pdf_url_with_blob_sas_token(blob_name, container_name):
-        blob_sas_token = generate_blob_sas(
-            account_name=ACCOUNT_NAME,
-            container_name=container_name,
-            blob_name=blob_name,
-            account_key=ACCOUNT_KEY,
-            permission=BlobSasPermissions(read=True),
-            expiry=datetime.utcnow() + timedelta(hours=1)
-        )
-        blob_url_with_blob_sas_token = f"https://{ACCOUNT_NAME}.blob.core.windows.net/{container_name}/{blob_name}?{blob_sas_token}"
-        return blob_url_with_blob_sas_token
 
     def __repr__(self):
         return f"{self.blob_name}"

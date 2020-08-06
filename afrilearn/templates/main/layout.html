@@ -28,8 +28,8 @@
     {% endif %}
 </head>
 <body>
-<header class="site-header">
-    <nav class="navbar navbar-expand-md fixed-top stylish-color-dark pt-4">
+<header class="site-header mb-100">
+    <nav class="navbar navbar-expand-md fixed-top stylish-color-dark pt-2">
         <div class="container">
             <div>
                 <div class="col-xl-2 col-lg-2">
@@ -79,6 +79,8 @@
         <!--Carousel Wrapper-->
         {% if title == 'page not found' %}
             <div></div>
+        {% elif title == 'Revision' %}
+            <div class="mb-5"></div>
         {% else %}
             <div id="carousel-example-2" class="carousel slide carousel-fade mb-5" data-ride="carousel">
                 <!--Indicators-->
@@ -155,23 +157,19 @@
         {% if title == 'page not found' %}
             <div></div>
         {% else %}
-            {% if title == 'Revision' %}
-                <div></div>
-            {% else %}
-                <div class="col-md-4">
-                    <div class="content-section">
-                        <h3>Notices Bar</h3>
-                        <p class='text-muted'>You'll get important information from us when its available.
+            <div class="col-md-4">
+                <div class="content-section">
+                    <h3>Notices Bar</h3>
+                    <p class='text-muted'>You'll get important information from us when its available.
 
-                        <ul class="list-group">
-                            <li class="list-group-item list-group-item-light">Dead lines</li>
-                            <li class="list-group-item list-group-item-light">Announcements</li>
-                            <li class="list-group-item list-group-item-light">Calendars</li>
-                        </ul>
-                        </p>
-                    </div>
+                    <ul class="list-group">
+                        <li class="list-group-item list-group-item-light">Dead lines</li>
+                        <li class="list-group-item list-group-item-light">Announcements</li>
+                        <li class="list-group-item list-group-item-light">Calendars</li>
+                    </ul>
+                    </p>
                 </div>
-            {% endif %}
+            </div>
         {% endif %}
     </div>
 </main>
