@@ -2,18 +2,14 @@ from datetime import datetime, timedelta
 
 from azure.storage.blob import generate_container_sas, ContainerSasPermissions, generate_blob_sas, BlobSasPermissions
 
-from afrilearn.models import LevelBlob, SubjectContainer
+from afrilearn.models import SubjectContainer
 from afrilearn import db
-from config import ACCOUNT_NAME, ACCOUNT_KEY
+from config import ACCOUNT_NAME, ACCOUNT_KEY, blob_service_client
 
 
-def add_course_to_db(course):
-    s = SubjectContainer(container=course)
+def add_course_to_db(name, level, subject, container):
+    s = SubjectContainer(name=name, subject=subject, level=level, container=container)
     db.session.add(s)
-    db.session.commit()
-    for blob in s.get_class_levels(container=course):
-        b = LevelBlob(blob_name=blob.name, subject_id=s.id)
-        db.session.add(b)
     db.session.commit()
 
 
@@ -41,3 +37,40 @@ def get_pdf_url_with_blob_sas_token(blob_name, container_name):
     blob_url_with_blob_sas_token = f"https://{ACCOUNT_NAME}.blob.core.windows.net/{container_name}/{blob_name}?{blob_sas_token}"
     return blob_url_with_blob_sas_token
 
+
+def get_primary_subjects(container):
+    primary = []
+    container_client = blob_service_client.get_container_client(container)
+    classes = container_client.list_blobs()
+    for i in classes:
+        if i.name.split('/')[0] == 'primary':
+            primary.append(i)
+    return primary
+
+
+def get_secondary_subjects(container):
+    secondary = []
+    container_client = blob_service_client.get_container_client(container)
+    classes = container_client.list_blobs()
+    for i in classes:
+        if i.name.split('/')[0] == 'secondary':
+            secondary.append(i)
+    return secondary
+
+
+subjects = [
+    "agriculture",
+    "biology",
+    "business-studies",
+    "chemistry",
+    "computer-studies",
+    "english",
+    "geography",
+    "history",
+    "home-science",
+    "kiswahili",
+    "mathematics",
+    "physics",
+    "religious-education",
+    "set-books",
+]

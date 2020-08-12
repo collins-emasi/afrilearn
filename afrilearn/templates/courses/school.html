@@ -1,0 +1,33 @@
+{% extends "main/layout.html" %}
+
+{% block content %}
+    <div class="our_courses">
+        <div class="container">
+            <div class="row">
+                {% for course in courses.items %}
+                    <div class="col-lg-6 single_course text-center">
+                        <div class="icon blue">
+                            <i class="flaticon-business-and-finance"></i>
+                        </div>
+                        <a href="{{ url_for("courses.school_subject", school=school, subject=course[0]) }}"><h2>{{ course[0]|capitalize }}</h2></a>
+                        <p>
+                            Your domain control panel is designed for ease-of-use <br> and <br>
+                            allows for all aspects of
+                        </p>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% for page_num in courses.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+        {% if page_num %}
+            {% if courses.page == page_num %}
+                <a class="btn btn-info mb-4"
+                   href="{{ url_for("courses.what_school", page=page_num, school=school) }}">{{ page_num }}</a>
+            {% else %}
+                <a class="btn btn-outline-info mb-4"
+                   href="{{ url_for("courses.what_school", page=page_num, school=school) }}">{{ page_num }}</a>
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+{% endblock %}

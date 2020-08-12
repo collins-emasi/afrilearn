@@ -9,7 +9,7 @@
                     <div class="icon blue">
                         <i class="flaticon-business-and-finance"></i>
                     </div>
-                    <a href="{{ url_for("courses.primary_school") }}"><h2>Primary School</h2></a>
+                    <a href="{{ url_for("courses.what_school", school="primary") }}"><h2>Primary School</h2></a>
                     <p>
                         Your domain control panel is designed for ease-of-use <br> and <br>
                         allows for all aspects of
@@ -19,7 +19,7 @@
                     <div class="icon">
                         <i class="flaticon-premium"></i>
                     </div>
-                    <a href="#"><h2>High School</h2></a>
+                    <a href="{{ url_for('courses.what_school', school="secondary") }}"><h2>High School</h2></a>
                     <p>
                         Your domain control panel is designed for ease-of-use <br> and <br>
                         allows for all aspects of

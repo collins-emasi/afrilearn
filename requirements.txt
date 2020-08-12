@@ -29,7 +29,7 @@ Flask-Mail==0.9.1
 flask-marshmallow==0.13.0
 Flask-Migrate==2.5.3
 Flask-SQLAlchemy==2.4.4
-flask-whooshalchemy-redux==0.7.1
+Flask-WhooshAlchemy-Redux==0.7.1
 Flask-WTF==0.14.3
 gunicorn==20.0.4
 idna==2.9
@@ -40,11 +40,12 @@ jsonify==0.5
 Mako==1.1.3
 MarkupSafe==1.1.1
 marshmallow==3.6.1
+marshmallow-sqlalchemy==0.23.1
 msrest==0.6.16
 oauthlib==3.1.0
 Pillow==7.2.0
 pycparser==2.20
-pyodbc==4.0.30
+pyodbc===4.0.0-unsupported
 python-dateutil==2.8.1
 python-editor==1.0.4
 python-ext==1.0.0

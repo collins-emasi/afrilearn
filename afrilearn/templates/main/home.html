@@ -60,31 +60,61 @@
     <div class="our_courses">
         <div class="container">
             <div class="row">
-                {% for course in _courses.items %}
-                    <div class="col-lg-6 single_course text-center">
-                        <div class="icon blue">
-                            <i class="flaticon-business-and-finance"></i>
+                {% if whoosh %}
+                    {% for course in _courses.items %}
+                        <div class="col-lg-6 single_course text-center">
+                            <div class="icon blue">
+                                <i class="flaticon-business-and-finance"></i>
+                            </div>
+                            <a href="{{ url_for("courses.what_school", school=course.name.split("/")[0]) }}">
+                                <h2>{{ course.name.split("/")[-1]|capitalize }}</h2></a>
+                            <p>
+                                Your domain control panel is designed for ease-of-use <br> and <br>
+                                allows for all aspects of
+                            </p>
                         </div>
-                        <a href="{{ url_for("courses.topic_subject", container=course.id) }}">
-                            <h2>{{ course|capitalize }}</h2></a>
-                        <p>
-                            Your domain control panel is designed for ease-of-use <br> and <br>
-                            allows for all aspects of
-                        </p>
-                    </div>
-                {% endfor %}
+                    {% endfor %}
+                {% else %}
+                    {% for course in _courses.items %}
+                        <div class="col-lg-6 single_course text-center">
+                            <div class="icon blue">
+                                <i class="flaticon-business-and-finance"></i>
+                            </div>
+                            <a href="{{ url_for("courses.what_school", school=course[0]) }}">
+                                <h2>{{ course[0]|capitalize }}</h2></a>
+                            <p>
+                                Your domain control panel is designed for ease-of-use <br> and <br>
+                                allows for all aspects of
+                            </p>
+                        </div>
+                    {% endfor %}
+                {% endif %}
             </div>
         </div>
     </div>
-    {% for page_num in _courses.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
-        {% if page_num %}
-            {% if _courses.page == page_num %}
-                <a class="btn btn-info mb-4"
-                   href="{{ url_for("main.home", page=page_num) }}">{{ page_num }}</a>
-            {% else %}
-                <a class="btn btn-outline-info mb-4"
-                   href="{{ url_for("main.home", page=page_num) }}">{{ page_num }}</a>
+    {% if whoosh %}
+        {% for page_num in _courses.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+            {% if page_num %}
+                {% if _courses.page == page_num %}
+                    <a class="btn btn-info mb-4"
+                       href="{{ url_for("main.search", page=page_num) }}">{{ page_num }}</a>
+                {% else %}
+                    <a class="btn btn-outline-info mb-4"
+                       href="{{ url_for("main.search", page=page_num) }}">{{ page_num }}</a>
+                {% endif %}
             {% endif %}
-        {% endif %}
-    {% endfor %}
+        {% endfor %}
+    {% else %}
+        {% for page_num in _courses.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+            {% if page_num %}
+                {% if _courses.page == page_num %}
+                    <a class="btn btn-info mb-4"
+                       href="{{ url_for("main.home", page=page_num) }}">{{ page_num }}</a>
+                {% else %}
+                    <a class="btn btn-outline-info mb-4"
+                       href="{{ url_for("main.home", page=page_num) }}">{{ page_num }}</a>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+    {% endif %}
 {% endblock content %}

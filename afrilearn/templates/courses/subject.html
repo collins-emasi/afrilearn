@@ -9,8 +9,8 @@
                         <div class="icon blue">
                             <i class="flaticon-business-and-finance"></i>
                         </div>
-                        <a href="{{ url_for("courses.revision", container_name=container_name, blob_name=pdfs.id) }}">
-                            <h2>{{ pdfs.blob_name|capitalize }}</h2></a>
+                        <a href="{{ url_for("courses.revision_pdf", blob_name=pdfs.id) }}">
+                            <h2>{{ pdfs.name.split('/')[-1]|capitalize }}</h2></a>
                         <p>
                             Your panel is designed for ease-of-use <br> and <br>
                             allows for all aspects of revision
@@ -24,10 +24,10 @@
         {% if page_num %}
             {% if all_level_class.page == page_num %}
                 <a class="btn btn-info mb-4"
-                   href="{{ url_for("courses.topic_subject", page=page_num, container=container) }}">{{ page_num }}</a>
+                   href="{{ url_for("courses.school_subject", page=page_num, school=all_level_class.items[0].name.split("/")[0], subject=all_level_class.items[0].name.split("/")[1]) }}">{{ page_num }}</a>
             {% else %}
                 <a class="btn btn-outline-info mb-4"
-                   href="{{ url_for("courses.topic_subject", page=page_num, container=container) }}">{{ page_num }}</a>
+                   href="{{ url_for("courses.school_subject", page=page_num, school=all_level_class.items[0].name.split("/")[0], subject=all_level_class.items[0].name.split("/")[1]) }}">{{ page_num }}</a>
             {% endif %}
         {% endif %}
     {% endfor %}

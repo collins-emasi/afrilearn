@@ -5,6 +5,8 @@ from flask_sqlalchemy import SQLAlchemy
 from config import *
 from flask_wtf.csrf import CSRFProtect
 from flask_bcrypt import Bcrypt
+from flask_marshmallow import Marshmallow
+
 
 app = Flask(__name__)
 
@@ -25,7 +27,7 @@ login_manager = LoginManager(app)
 mail = Mail(app)
 csrf = CSRFProtect(app)
 bcrypt = Bcrypt(app)
-
+ma = Marshmallow(app)
 
 db.init_app(app)
 login_manager.init_app(app)
@@ -35,6 +37,7 @@ login_manager.login_message_category = 'info'
 login_manager.session_protection = 'strong'
 csrf.init_app(app)
 bcrypt.init_app(app)
+ma.init_app(app)
 
 from afrilearn.main import main as main_blueprint
 from afrilearn.users import users as users_blueprint
