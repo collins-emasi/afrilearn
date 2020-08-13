@@ -1,10 +1,14 @@
 from flask_login import current_user
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileAllowed
+from sqlalchemy import text
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, FileField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 
 from afrilearn.models import User
+from afrilearn import db
+
+conn = db.engine.connect()
 
 
 class RegistrationForm(FlaskForm):
@@ -15,12 +19,14 @@ class RegistrationForm(FlaskForm):
     submit = SubmitField('Sign Up')
 
     def validate_username(self, username):
-        user = User.query.filter_by(username=username.data).first()
+        user = conn.execute(text("SELECT * FROM AspNetUsers WHERE UserName = '{}'".format(username))).fetchall()
+        print(user)
         if user:
             raise ValidationError('That username is taken. Please choose another one')
 
     def validate_email(self, email):
-        user = User.query.filter_by(email=email.data).first()
+        user = conn.execute(text("SELECT * FROM AspNetUsers WHERE Email = '{}'".format(email))).fetchall()
+        print(user)
         if user:
             raise ValidationError('Email is taken. Please Choose another one')
 

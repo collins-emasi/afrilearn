@@ -1,4 +1,4 @@
-import json
+import json, secrets
 
 import requests
 from flask import redirect, url_for, render_template, flash, request
@@ -25,18 +25,28 @@ def auth_user(payload):
     return response, result
 
 
+def create_user(payload):
+    response = requests.post(url=endpoint + "/api/User/register", data=json.dumps(payload), headers=headers)
+    return response
+
+
 @users.route("/register", methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
         return redirect(url_for('main.home'))
     form = RegistrationForm()
     if form.validate_on_submit():
-        hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-        user = User(username=form.username.data, email=form.email.data, password=hashed_password)
-        db.session.add(user)
-        db.session.commit()
-        flash(message='Account created successfully. Please login', category='success')
-        return redirect(url_for('users.login'))
+        payload = {
+            "id": secrets.token_hex(24),
+            "userName": form.username.data,
+            "email" : form.email.data,
+            "passwordHash": form.password.data,
+            "role": "customer",
+        }
+        response = create_user(payload)
+        if response.ok:
+            flash(message='Account created successfully. Please login', category='success')
+            return redirect(url_for('users.login'))
     return render_template('users/register.html', title='Register', form=form)
 
 
@@ -50,7 +60,6 @@ def login():
             "email": form.email.data,
             "password": form.password.data,
         }
-        # user = User.query.filter_by(email=form.email.data).first()
         response, result = auth_user(payload)
         if response.ok:
             user = UserModel(email=form.email.data)
@@ -61,23 +70,6 @@ def login():
         else:
             flash('Login unsuccessful. Check email or password', 'danger')
     return render_template('users/login.html', title='Login', form=form)
-
-
-# @users.route("/login", methods=['GET', 'POST'])
-# def login():
-#     if current_user.is_authenticated:
-#         return redirect(url_for('main.home'))
-#     form = LoginForm()
-#     if form.validate_on_submit():
-#         user = User.query.filter_by(email=form.email.data).first()
-#         if user and bcrypt.check_password_hash(user.password, form.password.data):
-#             login_user(user=user, remember=form.remember.data)
-#             next_page = request.args.get('next')
-#             flash("Log in successful", 'success')
-#             return redirect(next_page) if next_page else redirect(url_for('main.home'))
-#         else:
-#             flash('Login unsuccessful. Check email or password', 'danger')
-#     return render_template('users/login.html', title='Login', form=form)
 
 
 @users.route("/logout")
