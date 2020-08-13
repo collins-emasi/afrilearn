@@ -5,6 +5,8 @@ courses.db
 trials.py
 Pipfile
 Pipfile.lock
+#Dev
+dev_config.py
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

@@ -1,11 +1,28 @@
+import json
+
+import requests
 from flask import redirect, url_for, render_template, flash, request
 from flask_login import current_user, login_user, logout_user, login_required
 
 from afrilearn import db, bcrypt
-from afrilearn.models import User
+from afrilearn.models import User, UserModel
 from afrilearn.users import users
 from afrilearn.users.forms import RegistrationForm, LoginForm, UpdateAccountForm, RequestResetForm, ResetPasswordForm
 from afrilearn.users.utils import save_pic, send_reset_email
+
+endpoint = "https://reaiotbackend.azurewebsites.net"
+
+headers = {
+    'Authorization': 'password',
+    'Content-Type': 'application/json',
+}
+
+
+def auth_user(payload):
+    response = requests.post(url=endpoint + "/api/User/authenticateUser", data=json.dumps(payload), headers=headers)
+    conn = db.engine.connect()
+    result = conn.execute("SELECT * FROM AspNetUsers WHERE Email = '{}'".format(payload['email'])).first()
+    return response, result
 
 
 @users.route("/register", methods=['GET', 'POST'])
@@ -29,8 +46,14 @@ def login():
         return redirect(url_for('main.home'))
     form = LoginForm()
     if form.validate_on_submit():
-        user = User.query.filter_by(email=form.email.data).first()
-        if user and bcrypt.check_password_hash(user.password, form.password.data):
+        payload = {
+            "email": form.email.data,
+            "password": form.password.data,
+        }
+        # user = User.query.filter_by(email=form.email.data).first()
+        response, result = auth_user(payload)
+        if response.ok:
+            user = UserModel(email=form.email.data)
             login_user(user=user, remember=form.remember.data)
             next_page = request.args.get('next')
             flash("Log in successful", 'success')
@@ -38,6 +61,23 @@ def login():
         else:
             flash('Login unsuccessful. Check email or password', 'danger')
     return render_template('users/login.html', title='Login', form=form)
+
+
+# @users.route("/login", methods=['GET', 'POST'])
+# def login():
+#     if current_user.is_authenticated:
+#         return redirect(url_for('main.home'))
+#     form = LoginForm()
+#     if form.validate_on_submit():
+#         user = User.query.filter_by(email=form.email.data).first()
+#         if user and bcrypt.check_password_hash(user.password, form.password.data):
+#             login_user(user=user, remember=form.remember.data)
+#             next_page = request.args.get('next')
+#             flash("Log in successful", 'success')
+#             return redirect(next_page) if next_page else redirect(url_for('main.home'))
+#         else:
+#             flash('Login unsuccessful. Check email or password', 'danger')
+#     return render_template('users/login.html', title='Login', form=form)
 
 
 @users.route("/logout")

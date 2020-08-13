@@ -11,11 +11,19 @@ from afrilearn import db, login_manager
 
 @login_manager.user_loader
 def load_user(user_id):
-    return User.query.get(int(user_id))
+    _ = user_id.split("/")[-1]
+    email = user_id.split("/")[0]
+    return UserModel(email=email)
+
+
+class UserModel(UserMixin):
+    def __init__(self, email):
+        self.email = email
+        self.id = self.email + "/" + "randomnumbers"
+        self.image_file = "default.jpg"
 
 
 class User(db.Model, UserMixin):
-
     id = db.Column(db.Integer, primary_key=True)
     id_element = db.Column(db.String(120), unique=True, nullable=False)
     userName = db.Column(db.String(20), unique=True, nullable=False)
