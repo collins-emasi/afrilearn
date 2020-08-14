@@ -5,6 +5,7 @@ courses.db
 trials.py
 Pipfile
 Pipfile.lock
+
 #Dev
 dev_config.py
 del_config.py
