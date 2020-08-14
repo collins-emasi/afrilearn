@@ -21,6 +21,8 @@
   <component name="ChangeListManager">
     <list default="true" id="b7c4a270-c735-4873-bbd2-11b4947ee45c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pipfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pipfile.lock" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -171,6 +173,14 @@
       <screen x="52" y="27" width="1548" height="873" />
     </state>
     <state x="590" y="164" width="472" height="600" key="#Python/52.27.1548.873@52.27.1548.873" timestamp="1597252494580" />
+    <state x="136" y="267" width="596" height="396" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1597403556013">
+      <screen x="52" y="27" width="1548" height="873" />
+    </state>
+    <state x="136" y="267" width="596" height="396" key="#com.intellij.fileTypes.FileTypeChooser/52.27.1548.873@52.27.1548.873" timestamp="1597403556013" />
+    <state x="172" y="213" width="524" height="502" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1597403535272">
+      <screen x="52" y="27" width="1548" height="873" />
+    </state>
+    <state x="172" y="213" width="524" height="502" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/52.27.1548.873@52.27.1548.873" timestamp="1597403535272" />
     <state x="934" y="172" width="313" height="474" key="EnvironmentVariablesDialog" timestamp="1597399090673">
       <screen x="52" y="27" width="1548" height="873" />
     </state>
