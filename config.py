@@ -2,11 +2,10 @@ import os
 from urllib.parse import quote_plus
 from azure.storage.blob import BlobServiceClient
 
-
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 SECRET_KEY = os.environ.get('SECRET_KEY') or 'hard to guess string'
-MAIL_SERVER = os.environ.get('MAIL_SERVER', 'smtp.googlemail.com')
+MAIL_SERVER = os.environ.get('MAIL_SERVER')
 MAIL_PORT = int(os.environ.get('MAIL_PORT', '587'))
 MAIL_USE_TLS = os.environ.get('MAIL_USE_TLS', 'true').lower() in ['true', 'on', '1']
 MAIL_USERNAME = os.environ.get('MAIL_USERNAME')

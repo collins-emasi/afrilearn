@@ -10,7 +10,7 @@
         <fieldset class="form-group">
             {{ form.csrf_token() }}
             <div class="form-group">
-                <label for="query"></label>
+<!--                <label for="query"></label>-->
                 {{ form.query(class="form-control mr-sm-2", id='query', size='50', placeholder="Search for Revision Material", type="text") }}
                 {{ form.submit(class='btn aqua-gradient btn-rounded btn-sm my-0') }}
             </div>
@@ -66,7 +66,7 @@
                             <div class="icon blue">
                                 <i class="flaticon-business-and-finance"></i>
                             </div>
-                            <a href="{{ url_for("courses.what_school", school=course.name.split("/")[0]) }}">
+                            <a href="{{ url_for('courses.what_school', school=course.name.split('/')[0]) }}">
                                 <h2>{{ course.name.split("/")[-1]|capitalize }}</h2></a>
                             <p>
                                 Your domain control panel is designed for ease-of-use <br> and <br>
@@ -80,7 +80,7 @@
                             <div class="icon blue">
                                 <i class="flaticon-business-and-finance"></i>
                             </div>
-                            <a href="{{ url_for("courses.what_school", school=course[0]) }}">
+                            <a href="{{ url_for('courses.what_school', school=course[0]) }}">
                                 <h2>{{ course[0]|capitalize }}</h2></a>
                             <p>
                                 Your domain control panel is designed for ease-of-use <br> and <br>
@@ -97,10 +97,10 @@
             {% if page_num %}
                 {% if _courses.page == page_num %}
                     <a class="btn btn-info mb-4"
-                       href="{{ url_for("main.search", page=page_num) }}">{{ page_num }}</a>
+                       href="{{ url_for('main.search', page=page_num) }}">{{ page_num }}</a>
                 {% else %}
                     <a class="btn btn-outline-info mb-4"
-                       href="{{ url_for("main.search", page=page_num) }}">{{ page_num }}</a>
+                       href="{{ url_for('main.search', page=page_num) }}">{{ page_num }}</a>
                 {% endif %}
             {% endif %}
         {% endfor %}
@@ -109,10 +109,10 @@
             {% if page_num %}
                 {% if _courses.page == page_num %}
                     <a class="btn btn-info mb-4"
-                       href="{{ url_for("main.home", page=page_num) }}">{{ page_num }}</a>
+                       href="{{ url_for('main.home', page=page_num) }}">{{ page_num }}</a>
                 {% else %}
                     <a class="btn btn-outline-info mb-4"
-                       href="{{ url_for("main.home", page=page_num) }}">{{ page_num }}</a>
+                       href="{{ url_for('main.home', page=page_num) }}">{{ page_num }}</a>
                 {% endif %}
             {% endif %}
         {% endfor %}
