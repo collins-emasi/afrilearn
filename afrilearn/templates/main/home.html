@@ -1,120 +1,121 @@
 {% extends "main/layout.html" %}
 
 {% block content %}
-    <div>
-        <div class="row pb-10">
-            <h1>Browse all our Materials</h1>
-        </div>
+<div>
+    <div class="row pb-10">
+        <h1>Browse all our Materials</h1>
     </div>
-    <form class="form-inline md-form mr-auto mb-4" method="GET" action="{{ url_for('main.search') }}">
-        <fieldset class="form-group">
-            {{ form.csrf_token() }}
-            <div class="form-group">
-<!--                <label for="query"></label>-->
-                {{ form.query(class="form-control mr-sm-2", id='query', size='50', placeholder="Search for Revision Material", type="text") }}
-                {{ form.submit(class='btn aqua-gradient btn-rounded btn-sm my-0') }}
+</div>
+<form class="form-inline md-form mr-auto mb-4" method="GET" action="{{ url_for('main.search') }}">
+    <fieldset class="form-group">
+        {{ form.csrf_token() }}
+        <div class="form-group">
+            <label for="query"></label>
+            {{ form.query(class="form-control mr-sm-2", id='query', size='50', placeholder="Search for Revision
+            Material", type="text") }}
+            {{ form.submit(class='btn aqua-gradient btn-rounded btn-sm my-0') }}
+        </div>
+    </fieldset>
+</form>
+{% if bool_val %}
+<!-- about_area_start -->
+<div class="about_area">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-5 col-lg-6">
+                <div class="single_about_info">
+                    <h3>Quality Revision <br>
+                        from different Material</h3>
+                    <p>Our main aim is to enable students access of ready materials for revision at home.
+                        We would like all students to access revision materils at no extra charge for it.
+                        If you'd like to start. Make sure to create an account to access unlimited materials
+                        from us</p>
+                    <a href="{{ url_for('courses.courses_func') }}" class="boxed_btn">Enroll a Course</a>
+                </div>
             </div>
-        </fieldset>
-    </form>
-    {% if bool_val %}
-        <!-- about_area_start -->
-        <div class="about_area">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xl-5 col-lg-6">
-                        <div class="single_about_info">
-                            <h3>Quality Revision <br>
-                                from different Material</h3>
-                            <p>Our main aim is to enable students access of ready materials for revision at home.
-                                We would like all students to access revision materils at no extra charge for it.
-                                If you'd like to start. Make sure to create an account to access unlimited materials
-                                from us</p>
-                            <a href="{{ url_for('courses.courses_func') }}" class="boxed_btn">Enroll a Course</a>
+            <div class="col-xl-6 offset-xl-1 col-lg-6">
+                <div class="about_tutorials">
+                    <div class="courses">
+                        <div class="inner_courses">
+                            <div class="text_info">
+                                <span>10+</span>
+                                <p> Courses</p>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-xl-6 offset-xl-1 col-lg-6">
-                        <div class="about_tutorials">
-                            <div class="courses">
-                                <div class="inner_courses">
-                                    <div class="text_info">
-                                        <span>10+</span>
-                                        <p> Courses</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="courses-sky">
-                                <div class="inner_courses">
-                                    <div class="text_info">
-                                        <span>60+</span>
-                                        <p> Materials</p>
-                                    </div>
-                                </div>
+                    <div class="courses-sky">
+                        <div class="inner_courses">
+                            <div class="text_info">
+                                <span>60+</span>
+                                <p> Materials</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    {% endif %}
-
-    <div class="our_courses">
-        <div class="container">
-            <div class="row">
-                {% if whoosh %}
-                    {% for course in _courses.items %}
-                        <div class="col-lg-6 single_course text-center">
-                            <div class="icon blue">
-                                <i class="flaticon-business-and-finance"></i>
-                            </div>
-                            <a href="{{ url_for('courses.what_school', school=course.name.split('/')[0]) }}">
-                                <h2>{{ course.name.split("/")[-1]|capitalize }}</h2></a>
-                            <p>
-                                Your domain control panel is designed for ease-of-use <br> and <br>
-                                allows for all aspects of
-                            </p>
-                        </div>
-                    {% endfor %}
-                {% else %}
-                    {% for course in _courses.items %}
-                        <div class="col-lg-6 single_course text-center">
-                            <div class="icon blue">
-                                <i class="flaticon-business-and-finance"></i>
-                            </div>
-                            <a href="{{ url_for('courses.what_school', school=course[0]) }}">
-                                <h2>{{ course[0]|capitalize }}</h2></a>
-                            <p>
-                                Your domain control panel is designed for ease-of-use <br> and <br>
-                                allows for all aspects of
-                            </p>
-                        </div>
-                    {% endfor %}
-                {% endif %}
-            </div>
-        </div>
     </div>
-    {% if whoosh %}
-        {% for page_num in _courses.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
-            {% if page_num %}
-                {% if _courses.page == page_num %}
-                    <a class="btn btn-info mb-4"
-                       href="{{ url_for('main.search', page=page_num) }}">{{ page_num }}</a>
-                {% else %}
-                    <a class="btn btn-outline-info mb-4"
-                       href="{{ url_for('main.search', page=page_num) }}">{{ page_num }}</a>
-                {% endif %}
-            {% endif %}
-        {% endfor %}
-    {% else %}
-        {% for page_num in _courses.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
-            {% if page_num %}
-                {% if _courses.page == page_num %}
-                    <a class="btn btn-info mb-4"
-                       href="{{ url_for('main.home', page=page_num) }}">{{ page_num }}</a>
-                {% else %}
-                    <a class="btn btn-outline-info mb-4"
-                       href="{{ url_for('main.home', page=page_num) }}">{{ page_num }}</a>
-                {% endif %}
-            {% endif %}
-        {% endfor %}
-    {% endif %}
+</div>
+{% endif %}
+
+<!--<div class="our_courses">-->
+<!--    <div class="container">-->
+<!--        <div class="row">-->
+<!--            {% if whoosh %}-->
+<!--            {% for course in _courses.items %}-->
+<!--            <div class="col-lg-6 single_course text-center">-->
+<!--                <div class="icon blue">-->
+<!--                    <i class="flaticon-business-and-finance"></i>-->
+<!--                </div>-->
+<!--                <a href="{{ url_for('courses.what_school', school=course.name.split('/')[0]) }}">-->
+<!--                    <h2>{{ course.name.split("/")[-1]|capitalize }}</h2></a>-->
+<!--                <p>-->
+<!--                    Your domain control panel is designed for ease-of-use <br> and <br>-->
+<!--                    allows for all aspects of-->
+<!--                </p>-->
+<!--            </div>-->
+<!--            {% endfor %}-->
+<!--            {% else %}-->
+<!--            {% for course in _courses.items %}-->
+<!--            <div class="col-lg-6 single_course text-center">-->
+<!--                <div class="icon blue">-->
+<!--                    <i class="flaticon-business-and-finance"></i>-->
+<!--                </div>-->
+<!--                <a href="{{ url_for('courses.what_school', school=course[0]) }}">-->
+<!--                    <h2>{{ course[0]|capitalize }}</h2></a>-->
+<!--                <p>-->
+<!--                    Your domain control panel is designed for ease-of-use <br> and <br>-->
+<!--                    allows for all aspects of-->
+<!--                </p>-->
+<!--            </div>-->
+<!--            {% endfor %}-->
+<!--            {% endif %}-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+{% if whoosh %}
+{% for page_num in _courses.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+{% if page_num %}
+{% if _courses.page == page_num %}
+<a class="btn btn-info mb-4"
+   href="{{ url_for('main.search', page=page_num) }}">{{ page_num }}</a>
+{% else %}
+<a class="btn btn-outline-info mb-4"
+   href="{{ url_for('main.search', page=page_num) }}">{{ page_num }}</a>
+{% endif %}
+{% endif %}
+{% endfor %}
+{% else %}
+{% for page_num in _courses.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+{% if page_num %}
+{% if _courses.page == page_num %}
+<a class="btn btn-info mb-4"
+   href="{{ url_for('main.home', page=page_num) }}">{{ page_num }}</a>
+{% else %}
+<a class="btn btn-outline-info mb-4"
+   href="{{ url_for('main.home', page=page_num) }}">{{ page_num }}</a>
+{% endif %}
+{% endif %}
+{% endfor %}
+{% endif %}
 {% endblock content %}
