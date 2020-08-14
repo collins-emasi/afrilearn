@@ -74,3 +74,20 @@ subjects = [
     "religious-education",
     "set-books",
 ]
+
+container_name = 'freelearn'
+
+
+def fill_db():
+    primary = get_primary_subjects(container_name)
+    secondary = get_secondary_subjects(container_name)
+
+    for p in primary:
+        add_course_to_db(name=p.name, level='primary', subject=p.name.split('/')[1], container=container_name)
+
+    for s in secondary:
+        add_course_to_db(name=s.name, level='secondary', subject=s.name.split('/')[1], container=container_name)
+
+
+def create_db():
+    db.create_all(bind='courses')
