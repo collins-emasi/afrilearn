@@ -14,7 +14,8 @@ def home():
     form = SearchForm()
     page = request.args.get('page', default=1, type=int)
     _courses = db.session.query(distinct(SubjectContainer.level)).paginate(per_page=2, page=page)
-    # _courses = SubjectContainer.query(distinct(SubjectContainer.subject)).paginate(per_page=2, page=page)
+    for i in _courses:
+        print(i[0])
     return render_template('main/home.html', current_user=current_user, _courses=_courses, form=form, bool_val=True)
 
 
