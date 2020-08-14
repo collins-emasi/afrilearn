@@ -20,5 +20,5 @@ ODBC_CONNECTION_STRING = os.environ.get('ODBC_CONNECTION_STRING')
 BLOB_CONNECTION_STRING = os.environ.get('BLOB_CONNECTION_STRING')
 params = quote_plus(ODBC_CONNECTION_STRING)
 blob_service_client = BlobServiceClient.from_connection_string(BLOB_CONNECTION_STRING)
-SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or "mssql+pyodbc:///?odbc_connect=%s" % params
+SQLALCHEMY_DATABASE_URI = "mssql+pyodbc:///?odbc_connect=%s" % params
 SQLALCHEMY_BINDS = os.environ.get('DEV_BINDS') or {"courses": "sqlite:///courses.db"}
