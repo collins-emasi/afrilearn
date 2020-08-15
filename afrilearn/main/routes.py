@@ -1,11 +1,11 @@
 from flask import render_template, request, flash
 from flask_login import current_user
-from sqlalchemy import func, distinct
+from sqlalchemy import distinct
 
 from afrilearn import db
+from afrilearn.main import main
 from afrilearn.main.forms import SearchForm
 from afrilearn.models import SubjectContainer
-from afrilearn.main import main
 
 
 @main.route('/')
