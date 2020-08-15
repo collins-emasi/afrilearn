@@ -1,6 +1,5 @@
 #Pycharm stuff
 .idea/
-whoosh/
 courses.db
 trials.py
 Pipfile
