@@ -20,13 +20,11 @@ class RegistrationForm(FlaskForm):
 
     def validate_username(self, username):
         user = conn.execute(text("SELECT * FROM AspNetUsers WHERE UserName = '{}'".format(username))).fetchall()
-        print(user)
         if user:
             raise ValidationError('That username is taken. Please choose another one')
 
     def validate_email(self, email):
         user = conn.execute(text("SELECT * FROM AspNetUsers WHERE Email = '{}'".format(email))).fetchall()
-        print(user)
         if user:
             raise ValidationError('Email is taken. Please Choose another one')
 
@@ -46,13 +44,13 @@ class UpdateAccountForm(FlaskForm):
 
     def validate_username(self, username):
         if username.data != current_user.username:
-            user = User.query.filter_by(username=username.data).first()
+            user = conn.execute(text("SELECT * FROM AspNetUsers WHERE UserName = '{}'".format(username))).fetchall()
             if user:
                 raise ValidationError('That username is taken. Please choose another one')
 
     def validate_email(self, email):
         if email.data != current_user.email:
-            user = User.query.filter_by(email=email.data).first()
+            user = conn.execute(text("SELECT * FROM AspNetUsers WHERE Email = '{}'".format(email))).fetchall()
             if user:
                 raise ValidationError('Email is taken. Please Choose another one')
 

@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta
+from sqlalchemy import text
 
 import flask_whooshalchemy as fwa
 from azure.storage.blob import generate_blob_sas, BlobSasPermissions
@@ -7,6 +8,8 @@ from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 
 from afrilearn import app, ma, ACCOUNT_NAME, ACCOUNT_KEY
 from afrilearn import db, login_manager
+
+conn = db.engine.connect()
 
 
 @login_manager.user_loader
@@ -17,10 +20,14 @@ def load_user(user_id):
 
 
 class UserModel(UserMixin):
-    def __init__(self, email):
+    def __init__(self, email, **kwargs):
+        super(UserModel, self).__init__(**kwargs)
         self.email = email
         self.id = self.email + "/" + "randomnumbers"
         self.image_file = "default.jpg"
+        self.username = None
+        result = conn.execute(text("SELECT * FROM AspNetUsers WHERE Email = '{}'".format(self.email))).first()
+        self.username = result['UserName']
 
 
 class User(db.Model, UserMixin):
